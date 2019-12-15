@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<medicins>
+
+    <medicine id="1">
+        <name>жаранол</name>
+        <pharm>Med1.com</pharm>
+        <group>болеутоляющее</group>
+        <analogs>
+            <analog>Пентовит</analog>
+            <analog>Быструм</analog>
+        </analogs>
+        <versions>
+            <version>
+                <type>таблетки</type>
+                <certificate drugNumber="1">
+                    <issue>13.05.2018</issue>
+                    <expiration>13.05.2019</expiration>
+                    <registerOrganization>Register1</registerOrganization>
+                </certificate>
+                <package>
+                    <type>квадрат</type>
+                    <count>12</count>
+                    <price>100</price>
+                </package>
+                <dosage>
+                    <dose>40</dose>
+                    <frequency>2</frequency>
+                </dosage>
+            </version>
+            <version>
+                <type>капли</type>
+                <certificate drugNumber="13">
+                    <issue>13.05.2018</issue>
+                    <expiration>13.05.2019</expiration>
+                    <registerOrganization>Register1</registerOrganization>
+                </certificate>
+                <package>
+                    <type>квадрат</type>
+                    <count>12</count>
+                    <price>100</price>
+                </package>
+                <dosage>
+                    <dose>40</dose>
+                    <frequency>2</frequency>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+
+    <medicine id="2">
+        <name>анальгин</name>
+        <pharm>Med2.com</pharm>
+        <group>болеутоляющее</group>
+        <analogs>
+            <analog>Маенол</analog>
+        </analogs>
+        <versions>
+            <version>
+                <type>капли</type>
+                <certificate drugNumber="234">
+                    <issue>15.08.2000</issue>
+                    <expiration>22.05.2010</expiration>
+                    <registerOrganization>Register2</registerOrganization>
+                </certificate>
+                <package>
+                    <type>овал</type>
+                    <count>20</count>
+                    <price>10</price>
+                </package>
+                <dosage>
+                    <dose>10</dose>
+                    <frequency>3</frequency>
+                </dosage>
+            </version>
+        </versions>
+    </medicine>
+
+
+</medicins>

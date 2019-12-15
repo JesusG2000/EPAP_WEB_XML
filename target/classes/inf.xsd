@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="medicins" type="medicinsType"/>
+  <xs:complexType name="analogsType">
+    <xs:sequence>
+      <xs:element name="analog" maxOccurs="unbounded" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="certificateType">
+    <xs:sequence>
+      <xs:element name="issue">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+           <xs:pattern value="([0][1-9]|[1-2][1-9]|[3][0-1])\.([0][1-9]|[1][0-2])\.[2][0-9]{3}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="expiration">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="([0][1-9]|[1-2][1-9]|[3][0-1])\.([0][1-9]|[1][0-2])\.[2][0-9]{3}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="registerOrganization">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="drugNumber" default="0" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="packageType">
+    <xs:sequence>
+      <xs:element name="type">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="count">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:pattern value="[1-9][0-9]*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="price">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:pattern value="[1-9][0-9]*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dosageType">
+    <xs:sequence>
+      <xs:element name="dose">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:pattern value="[1-9][0-9]*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="frequency">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:pattern value="[1-9][0-9]*"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="medicineType">
+    <xs:sequence>
+      <xs:element name="name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pharm">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-zА-Яа-я0-9]+\.[A-Za-zА-Яа-я0-9]+"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="group"/>
+      <xs:element type="analogsType" name="analogs"/>
+      <xs:element type="certificateType" name="certificate"/>
+      <xs:element type="packageType" name="package"/>
+      <xs:element type="dosageType" name="dosage"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="id" default="0" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="medicinsType">
+    <xs:sequence>
+      <xs:element type="medicineType" name="medicine" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
