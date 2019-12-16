@@ -115,6 +115,8 @@ public class VersionHandler extends DefaultHandler {
         }
     }
 
+
+
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         String text = new String(ch, start, length);
