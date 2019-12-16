@@ -3,6 +3,7 @@ package com.epam.examples.stax;
 import com.epam.examples.bean.Package;
 import com.epam.examples.bean.*;
 import com.epam.examples.bean.tag.Tag;
+import com.epam.examples.builder.MedicineBuilder;
 import com.epam.examples.validate.Validate;
 import org.xml.sax.SAXException;
 
@@ -25,7 +26,7 @@ public class StaxParser {
     private List<Medicine> medicineList;
     private List<Analog> analogList;
     private List<Version> versionList;
-    private Medicine medicine;
+    private MedicineBuilder medicineBuilder;
     private Version version;
     private Package medPackage;
     private Analog analog;
@@ -57,21 +58,21 @@ public class StaxParser {
                         break;
                     }
                     case MEDICINE: {
-                        medicine = new Medicine();
+                        medicineBuilder = new MedicineBuilder();
                         Attribute attribute = startElement.getAttributeByName(new QName("id"));
-                        medicine.setId(Integer.parseInt(attribute.getValue()));
+                        medicineBuilder.buildId(Integer.parseInt(attribute.getValue()));
                         break;
                     }
                     case NAME: {
-                        medicine.setName(xmlEventReader.nextEvent().asCharacters().getData());
+                        medicineBuilder.buildName(xmlEventReader.nextEvent().asCharacters().getData());
                         break;
                     }
                     case PHARM: {
-                        medicine.setPharm(xmlEventReader.nextEvent().asCharacters().getData());
+                        medicineBuilder.buildPharm(xmlEventReader.nextEvent().asCharacters().getData());
                         break;
                     }
                     case GROUP: {
-                        medicine.setGroup(xmlEventReader.nextEvent().asCharacters().getData());
+                        medicineBuilder.buildGroup(xmlEventReader.nextEvent().asCharacters().getData());
                         break;
                     }
                     case ANALOGS: {
@@ -147,9 +148,8 @@ public class StaxParser {
                 EndElement endElement = xmlEvent.asEndElement();
                 switch (Tag.getElement(endElement.getName().getLocalPart())) {
                     case MEDICINE: {
-                        medicine.setVersions(versionList);
-                        medicine.setAnalogs(analogList);
-                        medicineList.add(medicine);
+                        medicineBuilder.buildVersions(versionList).buildAnalogs(analogList);
+                        medicineList.add(medicineBuilder.buildMedicine());
                         break;
                     }
                     case ANALOG: {

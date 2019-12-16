@@ -3,6 +3,7 @@ package com.epam.examples.dom;
 import com.epam.examples.bean.*;
 import com.epam.examples.bean.Package;
 import com.epam.examples.bean.tag.*;
+import com.epam.examples.builder.MedicineBuilder;
 import com.epam.examples.validate.Validate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,47 +38,47 @@ public class DomParser {
     private List<Medicine> mainElements(NodeList mainNodeList) {
         List<Medicine> medicineList = new ArrayList<>();
         for (int i = 0; i < mainNodeList.getLength(); i++) {
-            Medicine medicine = new Medicine();
+            MedicineBuilder builder =new MedicineBuilder();
             if (mainNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                 Element medicineElement = (Element) mainNodeList.item(i);
-                medicine.setId(Integer.parseInt(medicineElement.getAttribute("id")));
-                medicineList.add(medicineElements(medicineElement.getChildNodes(), medicine));
+                builder.buildId(Integer.parseInt(medicineElement.getAttribute("id")));
+                medicineList.add(medicineElements(medicineElement.getChildNodes(), builder));
 
             }
         }
         return medicineList;
     }
 
-    private Medicine medicineElements(NodeList medicineNodeList, Medicine medicine) {
+    private Medicine medicineElements(NodeList medicineNodeList, MedicineBuilder builder) {
 
         for (int i = 0; i < medicineNodeList.getLength(); i++) {
             if (medicineNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                 Element medicineNodeElement = (Element) medicineNodeList.item(i);
                 switch (Tag.getElement(medicineNodeElement.getNodeName())) {
                     case NAME: {
-                        medicine.setName(medicineNodeElement.getTextContent());
+                        builder.buildName(medicineNodeElement.getTextContent());
                         break;
                     }
                     case PHARM: {
-                        medicine.setPharm(medicineNodeElement.getTextContent());
+                        builder.buildPharm(medicineNodeElement.getTextContent());
                         break;
                     }
                     case GROUP: {
-                        medicine.setGroup(medicineNodeElement.getTextContent());
+                        builder.buildGroup(medicineNodeElement.getTextContent());
                         break;
                     }
                     case ANALOGS: {
-                        medicine.setAnalogs(analogsElements(medicineNodeElement.getChildNodes()));
+                        builder.buildAnalogs(analogsElements(medicineNodeElement.getChildNodes()));
                         break;
                     }
                     case VERSIONS: {
-                        medicine.setVersions(versionsElements(medicineNodeElement.getChildNodes()));
+                        builder.buildVersions(versionsElements(medicineNodeElement.getChildNodes()));
                         break;
                     }
                 }
             }
         }
-        return medicine;
+        return builder.buildMedicine();
     }
 
     private List<Version> versionsElements(NodeList versionsNodeList) {

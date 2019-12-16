@@ -3,6 +3,7 @@ package com.epam.examples.sax;
 import com.epam.examples.bean.Package;
 import com.epam.examples.bean.*;
 import com.epam.examples.bean.tag.Tag;
+import com.epam.examples.builder.MedicineBuilder;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,7 +15,7 @@ public class VersionHandler extends DefaultHandler {
     private List<Medicine> medicineList;
     private List<Analog> analogList;
     private List<Version> versionList;
-    private Medicine medicine;
+    private MedicineBuilder medicineBuilder;
     private Version version;
     private Package medPackage;
     private Analog analog;
@@ -38,8 +39,8 @@ public class VersionHandler extends DefaultHandler {
                 break;
             }
             case MEDICINE: {
-                medicine = new Medicine();
-                medicine.setId(Integer.parseInt(attributes.getValue("id")));
+                medicineBuilder = new MedicineBuilder();
+                medicineBuilder.buildId(Integer.parseInt(attributes.getValue("id")));
                 builder.delete(0, builder.length());
                 break;
             }
@@ -102,16 +103,16 @@ public class VersionHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (Tag.valueOf(qName.toUpperCase())) {
             case NAME: {
-                medicine.setName(builder.toString());
+                medicineBuilder.buildName(builder.toString());
                 break;
             }
             case PHARM: {
-                medicine.setPharm(builder.toString());
+                medicineBuilder.buildPharm(builder.toString());
                 break;
             }
 
             case GROUP: {
-                medicine.setGroup(builder.toString());
+                medicineBuilder.buildGroup(builder.toString());
                 break;
             }
             case ANALOG: {
@@ -120,9 +121,9 @@ public class VersionHandler extends DefaultHandler {
                 break;
             }
             case MEDICINE: {
-                medicine.setAnalogs(analogList);
-                medicine.setVersions(versionList);
-                medicineList.add(medicine);
+                medicineBuilder.buildAnalogs(analogList).buildVersions(versionList);
+
+                medicineList.add(medicineBuilder.buildMedicine());
                 break;
             }
 
@@ -137,14 +138,6 @@ public class VersionHandler extends DefaultHandler {
             }
             case DOSAGE: {
                 version.setDosage(dosage);
-                break;
-            }
-            case ANALOGS: {
-                medicine.setAnalogs(analogList);
-                break;
-            }
-            case VERSIONS: {
-                medicine.setVersions(versionList);
                 break;
             }
             case VERSION: {
