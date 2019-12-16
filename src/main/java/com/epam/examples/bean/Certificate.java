@@ -6,7 +6,7 @@ public class Certificate {
     private int drugNumber;
     private String issue;
     private String expiration;
-    private String registerOrganization;
+    private String organization;
 
     public int getDrugNumber() {
         return drugNumber;
@@ -32,12 +32,12 @@ public class Certificate {
         this.expiration = expiration;
     }
 
-    public String getRegisterOrganization() {
-        return registerOrganization;
+    public String getOrganization() {
+        return organization;
     }
 
-    public void setRegisterOrganization(String registerOrganization) {
-        this.registerOrganization = registerOrganization;
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 
     @Override
@@ -48,12 +48,12 @@ public class Certificate {
         return drugNumber == that.drugNumber &&
                 Objects.equals(issue, that.issue) &&
                 Objects.equals(expiration, that.expiration) &&
-                Objects.equals(registerOrganization, that.registerOrganization);
+                Objects.equals(organization, that.organization);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(drugNumber, issue, expiration, registerOrganization);
+        return Objects.hash(drugNumber, issue, expiration, organization);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Certificate {
                 "drugNumber=" + drugNumber +
                 ", issue='" + issue + '\'' +
                 ", expiration='" + expiration + '\'' +
-                ", registerOrganization='" + registerOrganization + '\'' +
+                ", registerOrganization='" + organization + '\'' +
                 '}';
     }
 }

@@ -3,16 +3,16 @@ package com.epam.examples.bean;
 import java.util.Objects;
 
 public class Package {
-    private String type;
+    private String form;
     private int count;
     private int price;
 
-    public String getType() {
-        return type;
+    public String getForm() {
+        return form;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setForm(String form) {
+        this.form = form;
     }
 
     public int getCount() {
@@ -38,18 +38,18 @@ public class Package {
         Package aPackage = (Package) o;
         return count == aPackage.count &&
                 price == aPackage.price &&
-                Objects.equals(type, aPackage.type);
+                Objects.equals(form, aPackage.form);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, count, price);
+        return Objects.hash(form, count, price);
     }
 
     @Override
     public String toString() {
         return "Package{" +
-                "type='" + type + '\'' +
+                "form='" + form + '\'' +
                 ", count=" + count +
                 ", price=" + price +
                 '}';

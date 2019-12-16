@@ -13,12 +13,12 @@
             <version>
                 <type>таблетки</type>
                 <certificate drugNumber="1">
-                    <issue>13.05.2018</issue>
+                    <issue>02.07.2000</issue>
                     <expiration>13.05.2019</expiration>
-                    <registerOrganization>Register1</registerOrganization>
+                    <organization>Register1</organization>
                 </certificate>
                 <package>
-                    <type>квадрат</type>
+                    <form>квадрат</form>
                     <count>12</count>
                     <price>100</price>
                 </package>
@@ -28,22 +28,22 @@
                 </dosage>
             </version>
             <version>
-                <type>капли</type>
-                <certificate drugNumber="13">
-                    <issue>13.05.2018</issue>
-                    <expiration>13.05.2019</expiration>
-                    <registerOrganization>Register1</registerOrganization>
-                </certificate>
-                <package>
-                    <type>квадрат</type>
-                    <count>12</count>
-                    <price>100</price>
-                </package>
-                <dosage>
-                    <dose>40</dose>
-                    <frequency>2</frequency>
-                </dosage>
-            </version>
+            <type>капли</type>
+            <certificate drugNumber="13">
+                <issue>13.05.2018</issue>
+                <expiration>13.05.2019</expiration>
+                <organization>Register1</organization>
+            </certificate>
+            <package>
+                <form>квадрат</form>
+                <count>12</count>
+                <price>100</price>
+            </package>
+            <dosage>
+                <dose>40</dose>
+                <frequency>2</frequency>
+            </dosage>
+        </version>
         </versions>
     </medicine>
 
@@ -60,10 +60,10 @@
                 <certificate drugNumber="234">
                     <issue>15.08.2000</issue>
                     <expiration>22.05.2010</expiration>
-                    <registerOrganization>Register2</registerOrganization>
+                    <organization>Register2</organization>
                 </certificate>
                 <package>
-                    <type>овал</type>
+                    <form>овал</form>
                     <count>20</count>
                     <price>10</price>
                 </package>

@@ -1,5 +1,6 @@
 package com.epam.examples.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,9 +10,12 @@ public class Medicine {
     private String pharm;
     private String group;
     private List<Analog> analogs;
-    private Certificate certificate;
-    private Package medPackage;
-    private Dosage dosage;
+    private List<Version> versions;
+
+    public Medicine() {
+        analogs = new ArrayList<>();
+        versions = new ArrayList<>();
+    }
 
     public int getId() {
         return id;
@@ -53,28 +57,12 @@ public class Medicine {
         this.analogs = analogs;
     }
 
-    public Certificate getCertificate() {
-        return certificate;
+    public List<Version> getVersions() {
+        return versions;
     }
 
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
-    }
-
-    public Package getMedPackage() {
-        return medPackage;
-    }
-
-    public void setMedPackage(Package medPackage) {
-        this.medPackage = medPackage;
-    }
-
-    public Dosage getDosage() {
-        return dosage;
-    }
-
-    public void setDosage(Dosage dosage) {
-        this.dosage = dosage;
+    public void setVersions(List<Version> versions) {
+        this.versions = versions;
     }
 
     @Override
@@ -87,14 +75,12 @@ public class Medicine {
                 Objects.equals(pharm, medicine.pharm) &&
                 Objects.equals(group, medicine.group) &&
                 Objects.equals(analogs, medicine.analogs) &&
-                Objects.equals(certificate, medicine.certificate) &&
-                Objects.equals(medPackage, medicine.medPackage) &&
-                Objects.equals(dosage, medicine.dosage);
+                Objects.equals(versions, medicine.versions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, pharm, group, analogs, certificate, medPackage, dosage);
+        return Objects.hash(id, name, pharm, group, analogs, versions);
     }
 
     @Override
@@ -105,9 +91,7 @@ public class Medicine {
                 ", pharm='" + pharm + '\'' +
                 ", group='" + group + '\'' +
                 ", analogs=" + analogs +
-                ", certificate=" + certificate +
-                ", medPackage=" + medPackage +
-                ", dosage=" + dosage +
-                '}';
+                ",\nversions=" + versions +
+                "}\n";
     }
 }

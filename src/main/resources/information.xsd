@@ -6,7 +6,7 @@
       <xs:element name="analog" maxOccurs="unbounded" minOccurs="0">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+            <xs:pattern value="([A-Za-zА-Яа-я0-9\s]+\n*)+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -28,10 +28,10 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
-      <xs:element name="registerOrganization">
+      <xs:element name="organization">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+            <xs:pattern value="([A-Za-zА-Яа-я0-9\s]+\n*)+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -40,10 +40,10 @@
   </xs:complexType>
   <xs:complexType name="packageType">
     <xs:sequence>
-      <xs:element name="type">
+      <xs:element name="form">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+            <xs:pattern value="([A-Za-zА-Яа-я0-9\s]+\n*)+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -86,7 +86,7 @@
       <xs:element name="type">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+            <xs:pattern value="([A-Za-zА-Яа-я0-9\s]+\n*)+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -105,7 +105,7 @@
       <xs:element name="name">
         <xs:simpleType>
           <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-zА-Яа-я0-9]+"/>
+            <xs:pattern value="([A-Za-zА-Яа-я0-9\s]+\n*)+"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -120,7 +120,7 @@
       <xs:element type="analogsType" name="analogs"/>
       <xs:element type="versionsType" name="versions"/>
     </xs:sequence>
-    <xs:attribute type="xs:string" name="id" default="0" use="optional"/>
+    <xs:attribute type="xs:string" name="id"  use="required"/>
   </xs:complexType>
   <xs:complexType name="medicinsType">
     <xs:sequence>

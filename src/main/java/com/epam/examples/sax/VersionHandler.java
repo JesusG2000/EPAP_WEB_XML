@@ -21,9 +21,7 @@ public class VersionHandler extends DefaultHandler {
     private Certificate certificate;
     private Dosage dosage;
 
-    private String currentElement;
-    private int medicineId;
-    private int drugNumber;
+    private StringBuilder builder = new StringBuilder();
 
     List<Medicine> getMedicineList() {
         return medicineList;
@@ -31,148 +29,171 @@ public class VersionHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        currentElement = qName;
-        Tag tag = Tag.valueOf(currentElement.toUpperCase());
-        switch (tag) {
+
+
+        switch (Tag.valueOf(qName.toUpperCase())) {
             case MEDICINS: {
                 medicineList = new ArrayList<>();
+                builder.delete(0, builder.length());
                 break;
             }
             case MEDICINE: {
                 medicine = new Medicine();
                 medicine.setId(Integer.parseInt(attributes.getValue("id")));
+                builder.delete(0, builder.length());
                 break;
             }
             case ANALOGS: {
                 analogList = new ArrayList<>();
+                builder.delete(0, builder.length());
                 break;
             }
             case ANALOG: {
-                System.out.println(111);
                 analog = new Analog();
+                builder.delete(0, builder.length());
                 break;
             }
             case VERSIONS: {
                 versionList = new ArrayList<>();
+                builder.delete(0, builder.length());
                 break;
             }
             case VERSION: {
                 version = new Version();
+                builder.delete(0, builder.length());
                 break;
             }
             case PACKAGE: {
                 medPackage = new Package();
+                builder.delete(0, builder.length());
+                break;
+            }
+            case DOSAGE: {
+                dosage = new Dosage();
+                builder.delete(0, builder.length());
                 break;
             }
             case CERTIFICATE: {
                 certificate = new Certificate();
                 certificate.setDrugNumber(Integer.parseInt(attributes.getValue("drugNumber")));
+                builder.delete(0, builder.length());
                 break;
             }
-            default:{
-
+            case NAME:
+            case PHARM:
+            case GROUP:
+            case ISSUE:
+            case FORM:
+            case TYPE:
+            case EXPIRATION:
+            case ORGANIZATION:
+            case COUNT:
+            case PRICE:
+            case DOSE:
+            case FREQUENCY: {
+                builder.delete(0, builder.length());
+                break;
             }
+
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         switch (Tag.valueOf(qName.toUpperCase())) {
-            case MEDICINE: {
-                medicine.setVersions(versionList);
-                medicine.setAnalogs(analogList);
+            case NAME: {
+                medicine.setName(builder.toString());
+                break;
+            }
+            case PHARM: {
+                medicine.setPharm(builder.toString());
+                break;
+            }
+
+            case GROUP: {
+                medicine.setGroup(builder.toString());
                 break;
             }
             case ANALOG: {
-
+                analog.setName(builder.toString());
                 analogList.add(analog);
-                //analog = null;
                 break;
             }
-            case VERSION: {
-                versionList.add(version);
-                //version = null;
+            case MEDICINE:{
+                medicine.setAnalogs(analogList);
+                medicine.setVersions(versionList);
+                medicineList.add(medicine);
                 break;
             }
+
             case CERTIFICATE: {
                 version.setCertificate(certificate);
-                //certificate = null;
+
                 break;
             }
             case PACKAGE: {
                 version.setMedPackage(medPackage);
-               // medPackage = null;
                 break;
             }
             case DOSAGE: {
                 version.setDosage(dosage);
-               // dosage = null;
                 break;
             }
-            default:{
+            case ANALOGS: {
+                medicine.setAnalogs(analogList);
+                break;
+            }
+            case VERSIONS: {
+                medicine.setVersions(versionList);
+                break;
+            }
+            case VERSION:{
+                versionList.add(version);
+                break;
+            }
 
+            case ISSUE: {
+                certificate.setIssue(builder.toString());
+                break;
+            }
+            case EXPIRATION: {
+                certificate.setExpiration(builder.toString());
+                break;
+            }
+            case ORGANIZATION: {
+                certificate.setOrganization(builder.toString());
+                break;
+            }
+            case COUNT: {
+                medPackage.setCount(Integer.parseInt(builder.toString()));
+                break;
+            }
+            case PRICE: {
+                medPackage.setPrice(Integer.parseInt(builder.toString()));
+                break;
+            }
+            case FORM:{
+                medPackage.setForm(builder.toString());
+                break;
+            }
+            case DOSE: {
+                dosage.setDose(Integer.parseInt(builder.toString()));
+                break;
+            }
+            case FREQUENCY: {
+                dosage.setFrequency(Integer.parseInt(builder.toString()));
+                break;
+            }
+            case TYPE:{
+                version.setType(builder.toString());
+                break;
             }
         }
     }
 
 
-
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        String text = new String(ch, start, length);
-        if (!text.contains("<") && currentElement != null) {
-            Tag tag = Tag.valueOf(currentElement.toUpperCase());
-
-            switch (tag) {
-                case NAME: {
-                    medicine.setName(text);
-                    break;
-                }
-                case PHARM: {
-                    medicine.setPharm(text);
-                    break;
-                }
-                case GROUP: {
-                    medicine.setGroup(text);
-                    break;
-                }
-                case ANALOG: {
-                    analog.setName(text);
-                    break;
-                }
-                case ISSUE: {
-                    certificate.setIssue(text);
-                    break;
-                }
-                case EXPIRATION: {
-                    certificate.setExpiration(text);
-                    break;
-                }
-                case ORGANIZATION: {
-                    certificate.setOrganization(text);
-                    break;
-                }
-                case COUNT: {
-
-                    medPackage.setCount(Integer.parseInt(text));
-                    break;
-                }
-                case PRICE: {
-                    medPackage.setPrice(Integer.parseInt(text));
-                    break;
-                }
-                case DOSE: {
-                    dosage.setDose(Integer.parseInt(text));
-                    break;
-                }
-                case FREQUENCY: {
-                    dosage.setFrequency(Integer.parseInt(text));
-                    break;
-                }
-                default:{
-
-                }
-            }
-        }
+        builder.append(ch, start, length);
     }
 }
