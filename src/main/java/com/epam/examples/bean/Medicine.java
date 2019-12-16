@@ -91,7 +91,7 @@ public class Medicine {
                 ", pharm='" + pharm + '\'' +
                 ", group='" + group + '\'' +
                 ", analogs=" + analogs +
-                ",\nversions=" + versions +
+                ",versions=" + versions +
                 "}\n";
     }
 }
