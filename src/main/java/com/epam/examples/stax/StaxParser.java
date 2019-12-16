@@ -4,7 +4,9 @@ import com.epam.examples.bean.Package;
 import com.epam.examples.bean.*;
 import com.epam.examples.bean.tag.Tag;
 import com.epam.examples.builder.MedicineBuilder;
+import com.epam.examples.sax.SaxParser;
 import com.epam.examples.validate.Validate;
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.namespace.QName;
@@ -22,7 +24,7 @@ import java.util.List;
 
 
 public class StaxParser {
-
+    private static Logger log = Logger.getLogger(SaxParser.class);
     private List<Medicine> medicineList;
     private List<Analog> analogList;
     private List<Version> versionList;
@@ -38,9 +40,12 @@ public class StaxParser {
             XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(new FileInputStream(dataHolder));
-            return mainElements(xmlEventReader);
-
+            log.info("Start Stax parse");
+            List<Medicine> medicineList =mainElements(xmlEventReader);
+            log.info("Document was parsed");
+            return medicineList;
         } else {
+            log.error("Document was not parsed");
             return null;
         }
     }

@@ -5,6 +5,7 @@ import com.epam.examples.bean.Package;
 import com.epam.examples.bean.tag.*;
 import com.epam.examples.builder.MedicineBuilder;
 import com.epam.examples.validate.Validate;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,16 +21,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DomParser {
-
+    private static Logger log = Logger.getLogger(DomParser.class);
     public List<Medicine> start(String dataHolder) throws SAXException, IOException, ParserConfigurationException {
         if (Validate.validate(dataHolder)) {
-
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(new File(dataHolder));
+            log.info("Start Dom parser");
             NodeList mainNodeList = document.getElementsByTagName("medicine");
-            return mainElements(mainNodeList);
+            List<Medicine> medicineList =  mainElements(mainNodeList);
+            log.info("Document was parsered");
+            return  medicineList;
+
         } else {
+            log.error("Document was not parsered");
             return null;
         }
 
