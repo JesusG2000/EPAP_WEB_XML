@@ -119,7 +119,7 @@ public class VersionHandler extends DefaultHandler {
                 analogList.add(analog);
                 break;
             }
-            case MEDICINE:{
+            case MEDICINE: {
                 medicine.setAnalogs(analogList);
                 medicine.setVersions(versionList);
                 medicineList.add(medicine);
@@ -147,7 +147,7 @@ public class VersionHandler extends DefaultHandler {
                 medicine.setVersions(versionList);
                 break;
             }
-            case VERSION:{
+            case VERSION: {
                 versionList.add(version);
                 break;
             }
@@ -172,7 +172,7 @@ public class VersionHandler extends DefaultHandler {
                 medPackage.setPrice(Integer.parseInt(builder.toString()));
                 break;
             }
-            case FORM:{
+            case FORM: {
                 medPackage.setForm(builder.toString());
                 break;
             }
@@ -184,7 +184,7 @@ public class VersionHandler extends DefaultHandler {
                 dosage.setFrequency(Integer.parseInt(builder.toString()));
                 break;
             }
-            case TYPE:{
+            case TYPE: {
                 version.setType(builder.toString());
                 break;
             }
